@@ -10,16 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kravetsin/nodejs-hw.git"
+    "url": "git+https://github.com/Sveta-pu/nodejs-hw.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/Kravetsin/nodejs-hw/issues"
+    "url": "https://github.com/Sveta-pu/nodejs-hw/issues"
   },
-  "homepage": "https://github.com/Kravetsin/nodejs-hw#readme",
+  "homepage": "https://github.com/Sveta-pu/nodejs-hw#readme",
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "eslint": "^9.39.1",
