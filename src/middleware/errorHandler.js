@@ -1,10 +1,10 @@
 // src/middleware/errorHandler.js
 
-import createHttpError from 'http-errors';
+import { HttpError } from 'http-errors';
 
 export const errorHandler = (err, req, res, next) => {
   console.error('Error middleware:', err);
-  if (err instanceof createHttpError.HttpError) {
+  if (err instanceof HttpError) {
     return res.status(err.statusCode).json({
       message: err.message || err.name,
     });
