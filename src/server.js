@@ -1,46 +1,33 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
-import pinoHttp from 'pino-http';
+import { logger } from './middleware/logger.js';
+import { connectMongoDB } from './db/connectMongoDB.js';
+import router from './routes/notesRoutes.js';
+import { notFoundHandler } from './middleware/notFoundHandler.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // logger
-app.use(pinoHttp());
+app.use(logger);
 
 // global middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
 // routes
-app.get('/notes', (req, res) => {
-  res.status(200).json({ message: 'Retrieved all notes' });
-});
-
-app.get('/notes/:noteId', (req, res) => {
-  const { noteId } = req.params;
-  res.status(200).json({
-    message: `Retrieved note with ID: ${noteId}`,
-  });
-});
-
-app.get('/test-error', (req, res, next) => {
-  next(new Error('Test error'));
-});
+app.use('/notes', router);
 
 // 404 middleware
-app.use((req, res) => {
-  res.status(404).json({ message: 'Route not found' });
-});
+app.use(notFoundHandler);
 
 // 500 middleware
-app.use((err, req, res, next) => {
-  res.status(500).json({
-    message: 'Internal Server Error',
-    error: err.message,
-  });
-});
+app.use(errorHandler);
+
+// підключення до MongoDB
+await connectMongoDB();
 
 // start server
 app.listen(PORT, () => {
